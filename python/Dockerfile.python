@@ -1,0 +1,11 @@
+FROM python:3.12
+
+WORKDIR /app
+
+# Needed by socketify.py
+RUN apt-get update && apt install libuv1-dev libssl-dev -y
+RUN pip install --no-cache-dir duckdb-server
+
+EXPOSE 3000
+
+CMD ["duckdb-server"]

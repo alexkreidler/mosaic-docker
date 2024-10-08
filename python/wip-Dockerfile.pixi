@@ -1,0 +1,23 @@
+FROM ghcr.io/prefix-dev/pixi:latest as build
+
+WORKDIR /app
+
+COPY . .
+RUN pixi install
+RUN pixi shell-hook > /shell-hook.sh
+RUN echo 'exec "$@"' >> /shell-hook.sh
+
+FROM ubuntu:24.04 AS production
+
+COPY --from=build /app/.pixi/envs/default /app/.pixi/envs/default
+COPY --from=build /shell-hook.sh /shell-hook.sh
+WORKDIR /app
+
+# This version doesn't work, still gets socketify error
+RUN apt-get update && apt install libuv1-dev libssl-dev -y
+
+EXPOSE 3000
+
+ENTRYPOINT ["/bin/bash", "/shell-hook.sh"]
+
+CMD ["duckdb-server"]

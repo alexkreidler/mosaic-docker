@@ -1,0 +1,11 @@
+FROM node:lts-slim
+
+WORKDIR /app
+RUN npm init
+RUN npm i @uwdata/mosaic-duckdb
+
+EXPOSE 3000
+
+# TODO: should this server be exposed as a bin command in the package.json
+# Or should we keep it in this repo alongside the Dockerfile?
+CMD node node_modules/@uwdata/mosaic-duckdb/bin/run-server.js

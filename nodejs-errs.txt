@@ -1,0 +1,42 @@
+Data server running on port 3000
+  http://localhost:3000/
+  ws://localhost:3000/
+TypeError: Cannot convert object to primitive value
+    at JSON.parse (<anonymous>)
+    at file:///app/node_modules/@uwdata/mosaic-duckdb/src/data-server.js:98:20
+    at Server.<anonymous> (file:///app/node_modules/@uwdata/mosaic-duckdb/src/data-server.js:47:9)
+    at Server.emit (node:events:519:28)
+    at parserOnIncoming (node:_http_server:1141:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:118:17)
+TypeError: Cannot convert object to primitive value
+    at JSON.parse (<anonymous>)
+    at file:///app/node_modules/@uwdata/mosaic-duckdb/src/data-server.js:98:20
+    at Server.<anonymous> (file:///app/node_modules/@uwdata/mosaic-duckdb/src/data-server.js:47:9)
+    at Server.emit (node:events:519:28)
+    at parserOnIncoming (node:_http_server:1141:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:118:17)
+> ARROW SUMMARIZE voter_registration_orange;
+
+[Error: Parser Error: syntax error at or near ";"] {
+  errno: -1,
+  code: 'DUCKDB_NODEJS_ERROR',
+  errorType: 'Parser'
+}
+REQUEST 3.7
+> ARROW -- SELECT * FROM voter_registration_orange ORDER BY date DESC LIMIT 100;
+SELECT first_name, last_name, res_street_address, res_city_desc, date, age_at_year_end, gender_code, race_code, * FROM voter_registration_orange ORDER BY date DESC LIMIT 10000;
+
+[Error: Parser Error: syntax error at or near ";"] {
+  errno: -1,
+  code: 'DUCKDB_NODEJS_ERROR',
+  errorType: 'Parser'
+}
+REQUEST 2.1
+> ARROW SELECT date as 'Registration Date', count(*) as 'Number of Voters', mean(age_at_year_end) as 'Average Age' FROM voter_registration_orange GROUP BY date ORDER BY date DESC LIMIT 100;
+
+[Error: Parser Error: syntax error at or near ";"] {
+  errno: -1,
+  code: 'DUCKDB_NODEJS_ERROR',
+  errorType: 'Parser'
+}
+REQUEST 3.3

@@ -1,0 +1,15 @@
+FROM rust:1.81 as build
+
+WORKDIR /app
+
+RUN cargo install duckdb-server
+
+FROM ubuntu:24.04 as prod
+
+# RUN apt-get update && apt-get install -y <runtime-deps> && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /usr/local/cargo/bin/duckdb-server /usr/local/bin/duckdb-server
+
+EXPOSE 3000
+
+CMD ["/usr/local/bin/duckdb-server"]
